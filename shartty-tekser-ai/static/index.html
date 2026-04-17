@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Шартты Тексер — AI Келісімшарт Талдаушы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <nav id="navbar" class="nav">
+    <a href="#home" class="nav-logo">
+      <span class="nav-logo-icon">⚖️</span>
+      <span>Шартты Тексер</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#upload">Жүктеу</a></li>
+      <li><a href="#how">Қалай жұмыс істейді</a></li>
+      <li><a href="#audience">Кімге</a></li>
+      <li><a href="#contact">Байланыс</a></li>
+    </ul>
+
+    <button class="nav-cta" type="button" data-scroll="#upload">Келісімшарт жүктеу →</button>
+
+    <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Мәзір">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#upload">Жүктеу</a>
+    <a href="#how">Қалай жұмыс істейді</a>
+    <a href="#audience">Кімге</a>
+    <a href="#contact">Байланыс</a>
+  </div>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            AI арқылы жұмыс істейді
+          </div>
+
+          <h1 class="hero-title">
+            Келісімшартты<br />
+            <span class="highlight">1 минут ішінде</span><br />
+            тексеріңіз
+          </h1>
+
+          <p class="hero-sub">
+            Құжатты жүктеңіз, ал жүйе оны backend арқылы қауіпсіз талдап,
+            тәуекелдерді, күмәнді тармақтарды және нақты ұсыныстарды осы бетте көрсетеді.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" type="button" data-scroll="#upload">📄 Келісімшартты жүктеу</button>
+            <button class="btn-secondary" type="button" data-scroll="#how">▶️ Қалай жұмыс істейді</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-num">PDF/DOCX</span>
+              <span class="stat-label">Қолдау бар</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">JSON</span>
+              <span class="stat-label">Құрылымды талдау</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">&lt; 60с</span>
+              <span class="stat-label">Әдеттегі талдау</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="contract-card">
+            <div class="contract-card-header">
+              <div class="card-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="card-filename">shartnama.pdf</span>
+            </div>
+            <div class="contract-card-body">
+              <div class="scan-line long"></div>
+              <div class="scan-line medium"></div>
+              <div class="scan-line long"></div>
+              <div class="scan-line risk short"></div>
+              <div class="scan-line medium"></div>
+              <div class="scan-line long"></div>
+              <div class="scan-line risk medium"></div>
+              <div class="scan-line short"></div>
+              <div class="scan-line long"></div>
+
+              <div class="result-pills">
+                <span class="pill red">🔴 3 тәуекел</span>
+                <span class="pill yel">🟡 2 ескерту</span>
+                <span class="pill grn">🟢 5 норма</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="upload">
+      <div class="container narrow">
+        <p class="section-label reveal">Құжатты жүктеу</p>
+        <h2 class="section-title reveal">Шартты бізге жіберіңіз</h2>
+        <p class="section-desc reveal">
+          PDF, DOC, DOCX, TXT немесе MD файл жүктеңіз. Файл <code>/api/analyze</code> endpoint-іне жіберіліп,
+          OpenAI талдауынан кейін нәтижелер динамикалық түрде осы интерфейске шығады.
+        </p>
+
+        <!-- ── Language selector ──────────────────────────────── -->
+        <div class="lang-toggle reveal" id="langToggle" role="group" aria-label="Талдау тілі">
+          <span class="lang-toggle-label">Талдау тілі:</span>
+          <button class="lang-btn active" data-lang="kk" type="button">🇰🇿 Қазақша</button>
+          <button class="lang-btn" data-lang="ru" type="button">🇷🇺 Русский</button>
+          <button class="lang-btn" data-lang="en" type="button">🇬🇧 English</button>
+        </div>
+
+        <label class="upload-box reveal" id="uploadBox" for="fileInput">
+          <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.txt,.md" hidden />
+          <div class="upload-icon">📄</div>
+          <p class="upload-title">Файлды осы жерге сүйреңіз немесе таңдаңыз</p>
+          <p class="upload-sub">Максималды файл өлшемі: 20 МБ</p>
+          <div class="file-types">
+            <span class="file-badge">PDF</span>
+            <span class="file-badge">DOCX</span>
+            <span class="file-badge">DOC</span>
+            <span class="file-badge">TXT</span>
+          </div>
+        </label>
+
+        <div class="file-info" id="fileInfo">
+          <span class="file-info-icon">📄</span>
+          <div>
+            <div class="file-info-name" id="fileName">—</div>
+            <div class="file-info-size" id="fileSize">—</div>
+          </div>
+          <button class="file-remove" id="removeFileBtn" type="button" title="Жою">✕</button>
+        </div>
+
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p class="progress-label" id="progressLabel">Талдауға дайындалуда...</p>
+
+        <div class="upload-actions reveal">
+          <button class="btn-primary analyze-btn" id="analyzeBtn" type="button" disabled>
+            🔍 Шартты талдау
+          </button>
+          <span class="helper-text">OpenAI API key тек backend жағында қолданылады.</span>
+        </div>
+
+        <div class="error-box" id="errorBox"></div>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="container narrow">
+        <div class="results-header">
+          <div>
+            <p class="section-label">Талдау нәтижесі</p>
+            <h2 class="section-title" id="resultsTitle">Шарт бойынша тұжырым</h2>
+            <p class="results-summary-text" id="overallSummary">Қазір нәтиже жоқ. Алдымен құжат жүктеңіз.</p>
+          </div>
+          <div class="score-badge">
+            <div class="score-num" id="riskIndex">—</div>
+            <div class="score-label">Тәуекел индексі</div>
+          </div>
+        </div>
+
+        <div class="results-summary">
+          <div class="summary-card red">
+            <span class="summary-icon">🔴</span>
+            <div>
+              <div class="summary-count" id="riskCount">0</div>
+              <div class="summary-text">Заңды тәуекел</div>
+            </div>
+          </div>
+
+          <div class="summary-card yellow">
+            <span class="summary-icon">🟡</span>
+            <div>
+              <div class="summary-count" id="warningCount">0</div>
+              <div class="summary-text">Ескерту / күдікті пункт</div>
+            </div>
+          </div>
+
+          <div class="summary-card green">
+            <span class="summary-icon">🟢</span>
+            <div>
+              <div class="summary-count" id="okCount">0</div>
+              <div class="summary-text">Қалыпты жағдай</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-cards" id="resultCards">
+          <div class="empty-state">AI нәтижелері осында карточка түрінде шығады.</div>
+        </div>
+
+        <div class="recommendations" id="recommendationsBlock">
+          <h3>💡 AI ұсыныстары</h3>
+          <ul class="rec-list" id="recommendationList">
+            <li>
+              <span class="rec-num">1</span>
+              Нақты ұсыныстар құжат талданған соң осында шығады.
+            </li>
+          </ul>
+          <div class="disclaimer" id="disclaimerText">Бұл автоматты талдау, ресми заңгерлік қорытынды емес.</div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn-secondary" id="resetBtn" type="button">← Жаңа шартты талдау</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="how">
+      <div class="container center-block">
+        <p class="section-label reveal center">Процесс</p>
+        <h2 class="section-title reveal center">Бұл қалай жұмыс істейді?</h2>
+        <p class="section-desc reveal center section-desc-centered">
+          Тек үш қадам — келісімшарт бойынша толық анализ аласыз.
+        </p>
+
+        <div class="steps-grid">
+          <div class="step-card reveal">
+            <div class="step-num">1</div>
+            <div class="step-icon">📤</div>
+            <h3 class="step-title">Келісімшартты жүктеңіз</h3>
+            <p class="step-desc">PDF немесе DOCX форматындағы шартыңызды жүйеге жүктеңіз. Файл серверде ғана өңделеді.</p>
+          </div>
+
+          <div class="step-card reveal">
+            <div class="step-num">2</div>
+            <div class="step-icon">🤖</div>
+            <h3 class="step-title">AI құжатты талдайды</h3>
+            <p class="step-desc">Backend OpenAI-ге файлды жіберіп, тәуекелдерді, ескертулерді және қалыпты тармақтарды құрылымды түрде қайтарады.</p>
+          </div>
+
+          <div class="step-card reveal">
+            <div class="step-num">3</div>
+            <div class="step-icon">✅</div>
+            <h3 class="step-title">Ұсыныстар алыңыз</h3>
+            <p class="step-desc">Нақты тармақтар бойынша түсіндірме мен әрекетке бағытталған ұсыныстарды бірден көресіз.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="audience">
+      <div class="container">
+        <p class="section-label reveal center">Мақсатты аудитория</p>
+        <h2 class="section-title reveal center">Кімге қызмет көрсетеміз?</h2>
+        <p class="section-desc reveal center section-desc-centered">
+          Кез келген адам немесе ұйым шартты тексеруге мұқтаж болуы мүмкін.
+        </p>
+
+        <div class="audience-grid">
+          <div class="audience-card reveal">
+            <div class="audience-emoji">👔</div>
+            <h3 class="audience-title">Кәсіпкерлер</h3>
+            <p class="audience-desc">Серіктестермен жасалатын шарттарды және жеткізушілермен келісімдерді тексеріңіз.</p>
+          </div>
+
+          <div class="audience-card reveal">
+            <div class="audience-emoji">💻</div>
+            <h3 class="audience-title">Фрилансерлер</h3>
+            <p class="audience-desc">Клиенттермен жасалатын жұмыс шарттарын қол қоймас бұрын түсінікті түрде талдаңыз.</p>
+          </div>
+
+          <div class="audience-card reveal">
+            <div class="audience-emoji">🏢</div>
+            <h3 class="audience-title">Компаниялар</h3>
+            <p class="audience-desc">Корпоративтік келісімдердегі жасырын тәуекелдерді автоматты түрде анықтаңыз.</p>
+          </div>
+
+          <div class="audience-card reveal">
+            <div class="audience-emoji">👤</div>
+            <h3 class="audience-title">Жеке тұлғалар</h3>
+            <p class="audience-desc">Жалдам, сатып алу немесе қызмет шарттарын оңай тілде тексеріп алыңыз.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="contact">
+      <div class="container narrow">
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <p class="section-label">Байланыс</p>
+            <h2 class="section-title">Бізге хабарласыңыз</h2>
+            <p class="contact-copy">
+              Сұрақтарыңыз бар ма? Бізге жазыңыз — бұл форма demo режимінде жұмыс істейді,
+              бірақ UX дайын күйде көрсетілген.
+            </p>
+            <a href="mailto:info@sharttytekser.kz" class="contact-email">✉️ info@sharttytekser.kz</a>
+
+            <div class="contact-stats">
+              <div class="contact-stat">
+                <div class="contact-stat-num">24/7</div>
+                <div class="contact-stat-label">Жұмыс уақыты</div>
+              </div>
+              <div class="contact-stat">
+                <div class="contact-stat-num">&lt; 24ч</div>
+                <div class="contact-stat-label">Жауап беру уақыты</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <form class="contact-form" id="contactForm">
+              <div class="form-group">
+                <label for="formName">Атыңыз</label>
+                <input type="text" id="formName" placeholder="Айгерім Жақсыбекова" />
+              </div>
+              <div class="form-group">
+                <label for="formEmail">Email</label>
+                <input type="email" id="formEmail" placeholder="aigul@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="formMsg">Хабарлама</label>
+                <textarea id="formMsg" rows="4" placeholder="Сұрағыңызды жазыңыз..."></textarea>
+              </div>
+              <button class="btn-primary contact-submit" type="submit">📨 Жіберу</button>
+            </form>
+            <div class="form-success" id="formSuccess">✅ Хабарламаңыз жіберілді! 24 сағат ішінде хабарласамыз.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">⚖️ Шартты Тексер</div>
+      <div class="footer-copy">© 2026 Шартты Тексер. Барлық құқықтар қорғалған.</div>
+      <div class="footer-links">
+        <a href="#">Конфиденциалдылық</a>
+        <a href="#">Қызмет шарттары</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
